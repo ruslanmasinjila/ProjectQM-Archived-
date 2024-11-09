@@ -53,8 +53,8 @@ strTimeframe   = ['M1','M2','M3','M4','M5','M6','M10','M12','M15','M20','M30','H
 
 
 num_candles         = 100
-offset              = 1
-sleep_time          = 60
+offset              = 0
+sleep_time          = 5
 
 ##########################################################################################
 
@@ -204,23 +204,23 @@ def get_signals():
                 if((first_sequence_head_low > third_sequence_highest_high  and
                     first_sequence_head_low > fourth_sequence_highest_high and 
                     first_sequence_head_low > fifth_sequence_highest_high)):
-                    if((fourth_sequence_tail_low < second_sequence_lowest_low  and
-                        fourth_sequence_tail_low < third_sequence_lowest_low   and 
-                        fourth_sequence_tail_low <= fourth_sequence_lowest_low)):
+                    if(fourth_sequence_lowest_low < second_sequence_lowest_low  and fourth_sequence_lowest_low < third_sequence_lowest_low):
                         if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
-                            signal = 'BUY '
-                            beep = 1
+                            difference = (abs(first_sequence_head_low - fifth_sequence_head_close)/(symbol_info.point)-spread)
+                            if(difference >= 50):
+                                signal = 'BUY '
+                                beep = 1
                 
             if(first_sequence_is_red and second_sequence_is_green and third_sequence_is_red and fourth_sequence_is_green and fifth_sequence_is_red):
                 if((first_sequence_head_high < third_sequence_lowest_low  and
                     first_sequence_head_high < fourth_sequence_lowest_low and 
                     first_sequence_head_high < fifth_sequence_lowest_low)):
-                    if((fourth_sequence_tail_high > second_sequence_highest_high  and
-                        fourth_sequence_tail_high > third_sequence_highest_high   and 
-                        fourth_sequence_tail_high >= fourth_sequence_highest_high)):
+                    if(fourth_sequence_highest_high > second_sequence_highest_high  and fourth_sequence_highest_high > third_sequence_highest_high):
                         if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
-                            signal = 'SELL'
-                            beep = 1
+                            difference = (abs(first_sequence_head_high - fifth_sequence_head_close)/(symbol_info.point)-spread)
+                            if(difference >= 50):
+                                signal = 'SELL'
+                                beep = 1
             
 
 
@@ -288,14 +288,13 @@ def getRates(symbol, mt5Timeframe, num_candles):
 os.system('cls' if os.name == 'nt' else 'clear')
 
 banner = ''
-banner+='##############################\n'
-banner+='          SIGNALS             \n'
-banner+='##############################\n'
+banner+='##############################   \n'
+banner+='          SIGNALS                \n'
+banner+='##############################   \n'
+display = banner     
+print(display)
 
 while(True):
-    
-    display = banner     
-    print(display)
     print(get_signals())
     time.sleep(sleep_time)
     os.system('cls' if os.name == 'nt' else 'clear')
