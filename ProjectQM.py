@@ -204,7 +204,9 @@ def get_signals():
                 if((first_sequence_head_low > third_sequence_highest_high  and
                     first_sequence_head_low > fourth_sequence_highest_high and 
                     first_sequence_head_low > fifth_sequence_highest_high)):
-                    if(fourth_sequence_lowest_low < second_sequence_lowest_low  and fourth_sequence_lowest_low < third_sequence_lowest_low):
+                    if((fourth_sequence_lowest_low < second_sequence_lowest_low  and 
+                        fourth_sequence_lowest_low < third_sequence_lowest_low   and
+                        fourth_sequence_lowest_low < fifth_sequence_lowest_low)):
                         if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
                             difference = (abs(first_sequence_head_low - fifth_sequence_head_close)/(symbol_info.point)-spread)
                             if(difference >= 50):
@@ -215,7 +217,9 @@ def get_signals():
                 if((first_sequence_head_high < third_sequence_lowest_low  and
                     first_sequence_head_high < fourth_sequence_lowest_low and 
                     first_sequence_head_high < fifth_sequence_lowest_low)):
-                    if(fourth_sequence_highest_high > second_sequence_highest_high  and fourth_sequence_highest_high > third_sequence_highest_high):
+                    if((fourth_sequence_highest_high > second_sequence_highest_high  and 
+                        fourth_sequence_highest_high > third_sequence_highest_high   and
+                        fourth_sequence_highest_high > fifth_sequence_highest_high)):
                         if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
                             difference = (abs(first_sequence_head_high - fifth_sequence_head_close)/(symbol_info.point)-spread)
                             if(difference >= 50):
