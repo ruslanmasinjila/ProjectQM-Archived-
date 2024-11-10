@@ -293,7 +293,6 @@ banner+='          SIGNALS                \n'
 banner+='##############################   \n'
 display = banner     
 
-
 while(True):
     print(display)
     print(get_signals())
