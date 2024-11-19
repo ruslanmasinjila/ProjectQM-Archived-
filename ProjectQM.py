@@ -53,7 +53,7 @@ strTimeframe   = ['M1','M2','M3','M4','M5','M6','M10','M12','M15','M20','M30','H
 
 
 num_candles         = 100
-offset              = 0
+offset              = 1
 sleep_time          = 5
 
 ##########################################################################################
@@ -198,21 +198,28 @@ def get_signals():
 
                              
             ##########################################################################################
+
             if(first_sequence_is_green and second_sequence_is_red and third_sequence_is_green and fourth_sequence_is_red and fifth_sequence_is_green):
-                if((fourth_sequence_lowest_low < second_sequence_lowest_low and 
-                    fourth_sequence_lowest_low < third_sequence_lowest_low  and
-                    fourth_sequence_lowest_low < fifth_sequence_lowest_low)):
-                    if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
-                        if(first_sequence_highest_high > fifth_sequence_highest_high):
+                if((first_sequence_lowest_low > third_sequence_highest_high  and
+                    first_sequence_lowest_low > fourth_sequence_highest_high and 
+                    first_sequence_lowest_low > fifth_sequence_highest_high)):
+                    if((fourth_sequence_lowest_low < first_sequence_lowest_low  and
+                        fourth_sequence_lowest_low < second_sequence_lowest_low and 
+                        fourth_sequence_lowest_low < third_sequence_lowest_low  and
+                        fourth_sequence_lowest_low < fifth_sequence_lowest_low)):
+                        if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
                             signal = 'BUY '
                             beep = 1
-                
+                            
             if(first_sequence_is_red and second_sequence_is_green and third_sequence_is_red and fourth_sequence_is_green and fifth_sequence_is_red):
-                if((fourth_sequence_highest_high > second_sequence_highest_high and 
-                    fourth_sequence_highest_high > third_sequence_highest_high  and
-                    fourth_sequence_highest_high > fifth_sequence_highest_high)):
-                    if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
-                        if(first_sequence_lowest_low < fifth_sequence_lowest_low):
+                if((first_sequence_highest_high < third_sequence_lowest_low  and
+                    first_sequence_highest_high < fourth_sequence_lowest_low and 
+                    first_sequence_highest_high < fifth_sequence_lowest_low)):
+                    if((fourth_sequence_highest_high > first_sequence_highest_high  and
+                        fourth_sequence_highest_high > second_sequence_highest_high and 
+                        fourth_sequence_highest_high > third_sequence_highest_high  and
+                        fourth_sequence_highest_high > fifth_sequence_highest_high)):
+                        if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
                             signal = 'SELL'
                             beep = 1
             
