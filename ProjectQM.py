@@ -202,13 +202,11 @@ def get_signals():
                 if((fourth_sequence_lowest_low < second_sequence_lowest_low and 
                     fourth_sequence_lowest_low < third_sequence_lowest_low  and
                     fourth_sequence_lowest_low < fifth_sequence_lowest_low)):
-                    if(fifth_sequence_lowest_low > third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
+                    if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
                         if(first_sequence_lowest_low > third_sequence_highest_high  and first_sequence_lowest_low > fourth_sequence_highest_high): 
                             if(first_sequence_highest_high > fifth_sequence_highest_high):
-                                    difference = (abs(first_sequence_head_low - fifth_sequence_head_close)/(symbol_info.point)-spread)
-                                    if(difference >= 50):
-                                        signal = 'BUY '
-                                        beep = 1
+                                signal = 'BUY '
+                                beep = 1
                 
             if(first_sequence_is_red and second_sequence_is_green and third_sequence_is_red and fourth_sequence_is_green and fifth_sequence_is_red):
                 if((fourth_sequence_highest_high > second_sequence_highest_high and 
@@ -217,10 +215,8 @@ def get_signals():
                     if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
                         if(first_sequence_highest_high < third_sequence_lowest_low  and first_sequence_highest_high < fourth_sequence_lowest_low): 
                             if(first_sequence_lowest_low < fifth_sequence_lowest_low):
-                                    difference = (abs(first_sequence_head_high - fifth_sequence_head_close)/(symbol_info.point)-spread)
-                                    if(difference >= 50):
-                                        signal = 'SELL'
-                                        beep = 1
+                                signal = 'SELL'
+                                beep = 1
             
 
 
