@@ -200,24 +200,19 @@ def get_signals():
             ##########################################################################################
 
             if(first_sequence_is_green and second_sequence_is_red and third_sequence_is_green and fourth_sequence_is_red and fifth_sequence_is_green):
-                if((first_sequence_lowest_low   > third_sequence_highest_high  and
-                    first_sequence_lowest_low   > fourth_sequence_highest_high and 
-                    first_sequence_highest_high > fifth_sequence_highest_high  and
-                    first_sequence_lowest_low   < fifth_sequence_highest_high)):
-                    if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
-                        signal = 'BUY '
-                        beep = 1
+                if(fifth_sequence_lowest_low < fourth_sequence_lowest_low  and fifth_sequence_lowest_low < third_sequence_lowest_low):
+                    if(fifth_sequence_highest_high > fourth_sequence_highest_high  and fifth_sequence_highest_high > third_sequence_highest_high):
+                        if(fifth_sequence_highest_high < first_sequence_highest_close):
+                            signal = 'BUY '
+                            beep = 1
                             
             if(first_sequence_is_red and second_sequence_is_green and third_sequence_is_red and fourth_sequence_is_green and fifth_sequence_is_red):
-                if((first_sequence_highest_high < third_sequence_lowest_low  and
-                    first_sequence_highest_high < fourth_sequence_lowest_low and 
-                    first_sequence_lowest_low   < fifth_sequence_lowest_low  and
-                    first_sequence_highest_high > fifth_sequence_lowest_low)):
-                    if(fifth_sequence_lowest_low < third_sequence_lowest_low and fifth_sequence_highest_high > third_sequence_highest_high):
-                        signal = 'SELL'
-                        beep = 1
+                if(fifth_sequence_highest_high > fourth_sequence_highest_high  and fifth_sequence_highest_high > third_sequence_highest_high):
+                    if(fifth_sequence_lowest_low < fourth_sequence_lowest_low  and fifth_sequence_lowest_low   < third_sequence_lowest_low):
+                        if(fifth_sequence_lowest_low > first_sequence_lowest_close):
+                            signal = 'SELL'
+                            beep = 1
             
-
 
             ##########################################################################################
             
@@ -286,12 +281,14 @@ banner = ''
 banner+='##############################   \n'
 banner+='          SIGNALS                \n'
 banner+='##############################   \n'
-display = banner     
+   
 
 while(True):
+    display = banner + f"\nOffset={offset}"
     print(display)
     print(get_signals())
-    time.sleep(sleep_time)
+    input("Press Enter to Continue...")
+    offset+=1
     os.system('cls' if os.name == 'nt' else 'clear')
     
 ##########################################################################################
