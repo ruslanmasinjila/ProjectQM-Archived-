@@ -1,6 +1,7 @@
 ##########################################################################################
 # ProjectQM (PROJECT QUASIMODO)
 # AUTHOR: RUSLAN MASINJILA
+# USAGE: python ProjectQM.py <scan | step> <offset>
 ##########################################################################################
 
 import MetaTrader5 as mt5
@@ -9,6 +10,7 @@ import numpy as np
 from itertools import groupby
 import time
 import os
+import sys
 import winsound
 
 duration  = 50
@@ -52,9 +54,18 @@ mt5Timeframe   = [M1,M2,M3,M4,M5,M6,M10,M12,M15,M20,M30,H1,H2,H3,H4,H6,H8,H12,D1
 strTimeframe   = ['M1','M2','M3','M4','M5','M6','M10','M12','M15','M20','M30','H1','H2','H3','H4','H6','H8','H12','D1']
 
 
+mode                = "scan"
 num_candles         = 100
-offset              = 0
 sleep_time          = 5
+
+
+offset              = 0
+if len(sys.argv) != 3:
+    print("USAGE: python ProjectQM.py <scan | step> <offset>")
+    sys.exit(1)
+    
+mode   = sys.argv[1]
+offset = int(sys.argv[2])
 
 ##########################################################################################
 
@@ -202,14 +213,14 @@ def get_signals():
             if(first_sequence_is_green and second_sequence_is_red and third_sequence_is_green and fourth_sequence_is_red and fifth_sequence_is_green):
                 if(fifth_sequence_lowest_low < fourth_sequence_lowest_low  and fifth_sequence_lowest_low < third_sequence_lowest_low):
                     if(fifth_sequence_highest_high > fourth_sequence_highest_high  and fifth_sequence_highest_high > third_sequence_highest_high):
-                        if(fifth_sequence_highest_high < first_sequence_highest_close):
+                        if(fifth_sequence_highest_high < first_sequence_lowest_low):
                             signal = 'BUY '
                             beep = 1
                             
             if(first_sequence_is_red and second_sequence_is_green and third_sequence_is_red and fourth_sequence_is_green and fifth_sequence_is_red):
                 if(fifth_sequence_highest_high > fourth_sequence_highest_high  and fifth_sequence_highest_high > third_sequence_highest_high):
                     if(fifth_sequence_lowest_low < fourth_sequence_lowest_low  and fifth_sequence_lowest_low   < third_sequence_lowest_low):
-                        if(fifth_sequence_lowest_low > first_sequence_lowest_close):
+                        if(fifth_sequence_lowest_low > first_sequence_highest_high):
                             signal = 'SELL'
                             beep = 1
             
@@ -284,11 +295,14 @@ banner+='##############################   \n'
    
 
 while(True):
-    display = banner + f"\nOffset={offset}"
+    display = banner + f"\n Mode: {mode} | Offset={offset}"
     print(display)
     print(get_signals())
-    input("Press Enter to Continue...")
-    offset+=1
+    if(mode == "step"):
+        input("Press Enter to Continue...")
+        offset+=1
+    elif(mode == "scan"):
+        time.sleep(sleep_time)
     os.system('cls' if os.name == 'nt' else 'clear')
     
 ##########################################################################################
