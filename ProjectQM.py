@@ -211,22 +211,34 @@ def get_signals():
             ##########################################################################################
 
             if(first_sequence_is_green and second_sequence_is_red and third_sequence_is_green and fourth_sequence_is_red and fifth_sequence_is_green):
-                if((fifth_sequence_lowest_low < fourth_sequence_lowest_low  and 
-                    fifth_sequence_lowest_low < third_sequence_lowest_low   and
-                    fifth_sequence_lowest_low < second_sequence_lowest_low)):
-                    if(fifth_sequence_highest_high > fourth_sequence_highest_high  and fifth_sequence_highest_high > third_sequence_highest_high):
-                        if(fifth_sequence_highest_high < first_sequence_lowest_low):
-                            signal = 'BUY '
-                            beep = 1
-                            
+                if(fifth_sequence_lowest_low < third_sequence_lowest_low  and fifth_sequence_highest_high > third_sequence_highest_high):
+                    if((first_sequence_lowest_low < second_sequence_lowest_low  and
+                        first_sequence_lowest_low < third_sequence_lowest_low   and
+                        first_sequence_lowest_low < fourth_sequence_lowest_low  and
+                        first_sequence_lowest_low < fifth_sequence_lowest_low)):
+                        if((first_sequence_highest_high > second_sequence_highest_high  and
+                            first_sequence_highest_high > third_sequence_highest_high   and
+                            first_sequence_highest_high > fourth_sequence_highest_high  and
+                            first_sequence_highest_high > fifth_sequence_highest_high)):
+                                difference = int(abs(first_sequence_highest_high - fifth_sequence_highest_high)/(symbol_info.point))
+                                if(difference - spread >=10):
+                                    signal = 'BUY '
+                                    beep = 1
+                                    
             if(first_sequence_is_red and second_sequence_is_green and third_sequence_is_red and fourth_sequence_is_green and fifth_sequence_is_red):
-                if((fifth_sequence_highest_high > fourth_sequence_highest_high  and 
-                    fifth_sequence_highest_high > third_sequence_highest_high   and
-                    fifth_sequence_highest_high > second_sequence_highest_high)):
-                    if(fifth_sequence_lowest_low < fourth_sequence_lowest_low  and fifth_sequence_lowest_low  < third_sequence_lowest_low):
-                        if(fifth_sequence_lowest_low > first_sequence_highest_high):
-                            signal = 'SELL'
-                            beep = 1
+                if(fifth_sequence_highest_high > third_sequence_highest_high and fifth_sequence_lowest_low < third_sequence_lowest_low):
+                    if((first_sequence_highest_high > second_sequence_highest_high  and
+                        first_sequence_highest_high > third_sequence_highest_high   and
+                        first_sequence_highest_high > fourth_sequence_highest_high  and
+                        first_sequence_highest_high > fifth_sequence_highest_high)):
+                        if((first_sequence_lowest_low < second_sequence_lowest_low  and
+                            first_sequence_lowest_low < third_sequence_lowest_low   and
+                            first_sequence_lowest_low < fourth_sequence_lowest_low  and
+                            first_sequence_lowest_low < fifth_sequence_lowest_low)):
+                                difference = int(abs(first_sequence_lowest_low - fifth_sequence_lowest_low)/(symbol_info.point))
+                                if(difference - spread >=10):
+                                    signal = 'SELL'
+                                    beep = 1
             
 
             ##########################################################################################
@@ -299,7 +311,7 @@ banner+='##############################   \n'
    
 
 while(True):
-    display = banner + f"\n Mode: {mode} | Offset={offset}"
+    display = banner + f"\nMode: {mode} | Offset={offset}"
     print(display)
     print(get_signals())
     if(mode == "step"):
