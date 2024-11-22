@@ -220,7 +220,7 @@ def get_signals():
                             first_sequence_highest_high > third_sequence_highest_high   and
                             first_sequence_highest_high > fourth_sequence_highest_high  and
                             first_sequence_highest_high > fifth_sequence_highest_high)):
-                                difference = int(abs(first_sequence_highest_high - fifth_sequence_highest_high)/(symbol_info.point))
+                                difference = int((first_sequence_highest_high - ask)/(symbol_info.point))
                                 if(difference - spread >=10):
                                     signal = 'BUY '
                                     beep = 1
@@ -235,7 +235,7 @@ def get_signals():
                             first_sequence_lowest_low < third_sequence_lowest_low   and
                             first_sequence_lowest_low < fourth_sequence_lowest_low  and
                             first_sequence_lowest_low < fifth_sequence_lowest_low)):
-                                difference = int(abs(first_sequence_lowest_low - fifth_sequence_lowest_low)/(symbol_info.point))
+                                difference = int((bid-first_sequence_lowest_low)/(symbol_info.point))
                                 if(difference - spread >=10):
                                     signal = 'SELL'
                                     beep = 1
