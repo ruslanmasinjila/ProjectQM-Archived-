@@ -129,30 +129,17 @@ def get_signals():
             sorted_merged_list = sorted(merged_list, key=lambda x: x[0])
             ##########################################################################################
             
-            sixth_sequence_indices  = sorted_merged_list[-1]
-            fifth_sequence_indices  = sorted_merged_list[-2]
-            fourth_sequence_indices = sorted_merged_list[-3]
-            third_sequence_indices  = sorted_merged_list[-4]
-            second_sequence_indices = sorted_merged_list[-5]
-            first_sequence_indices  = sorted_merged_list[-6]
+            fourth_sequence_indices = sorted_merged_list[-1]
+            third_sequence_indices  = sorted_merged_list[-2]
+            second_sequence_indices = sorted_merged_list[-3]
+            first_sequence_indices  = sorted_merged_list[-4]
             
             
-            length_sixth_sequence   = len(sixth_sequence_indices)
-            length_fifth_sequence   = len(fifth_sequence_indices)
             length_fourth_sequence  = len(fourth_sequence_indices)
             length_third_sequence   = len(third_sequence_indices)
             length_second_sequence  = len(second_sequence_indices)
             length_first_sequence   = len(first_sequence_indices)
             
-            sixth_sequence_head_open    = rates_frame['open'].iloc[sixth_sequence_indices[-1]]
-            sixth_sequence_head_close   = rates_frame['close'].iloc[sixth_sequence_indices[-1]]
-            sixth_sequence_is_green = ( sixth_sequence_head_close - sixth_sequence_head_open ) > 0
-            sixth_sequence_is_red   = ( sixth_sequence_head_close - sixth_sequence_head_open ) < 0
-            
-            fifth_sequence_head_open    = rates_frame['open'].iloc[fifth_sequence_indices[-1]]
-            fifth_sequence_head_close   = rates_frame['close'].iloc[fifth_sequence_indices[-1]]
-            fifth_sequence_is_green = ( fifth_sequence_head_close - fifth_sequence_head_open ) > 0
-            fifth_sequence_is_red   = ( fifth_sequence_head_close - fifth_sequence_head_open ) < 0
             
             fourth_sequence_head_open   = rates_frame['open'].iloc[fourth_sequence_indices[-1]]
             fourth_sequence_head_close  = rates_frame['close'].iloc[fourth_sequence_indices[-1]]
@@ -174,21 +161,7 @@ def get_signals():
             first_sequence_is_green = ( first_sequence_head_close -first_sequence_head_open ) > 0
             first_sequence_is_red   = ( first_sequence_head_close - first_sequence_head_open ) < 0
             
-            sixth_sequence_highest_open = rates_frame['open'].iloc[sixth_sequence_indices].max()
-            sixth_sequence_lowest_open  = rates_frame['open'].iloc[sixth_sequence_indices].min()
-            sixth_sequence_highest_high  = rates_frame['high'].iloc[sixth_sequence_indices].max()
-            sixth_sequence_lowest_low    = rates_frame['low'].iloc[sixth_sequence_indices].min()
-            sixth_sequence_highest_close = rates_frame['close'].iloc[sixth_sequence_indices].max()
-            sixth_sequence_lowest_close  = rates_frame['close'].iloc[sixth_sequence_indices].min()            
-            
-            fifth_sequence_highest_open = rates_frame['open'].iloc[fifth_sequence_indices].max()
-            fifth_sequence_lowest_open  = rates_frame['open'].iloc[fifth_sequence_indices].min()
-            fifth_sequence_highest_high  = rates_frame['high'].iloc[fifth_sequence_indices].max()
-            fifth_sequence_lowest_low    = rates_frame['low'].iloc[fifth_sequence_indices].min()
-            fifth_sequence_highest_close = rates_frame['close'].iloc[fifth_sequence_indices].max()
-            fifth_sequence_lowest_close  = rates_frame['close'].iloc[fifth_sequence_indices].min()
 
-            
 
             fourth_sequence_highest_open = rates_frame['open'].iloc[fourth_sequence_indices].max()
             fourth_sequence_lowest_open  = rates_frame['open'].iloc[fourth_sequence_indices].min()
@@ -224,37 +197,27 @@ def get_signals():
             if((first_sequence_is_red       and 
                 second_sequence_is_green    and 
                 third_sequence_is_red       and 
-                fourth_sequence_is_green    and
-                fifth_sequence_is_red       and
-                sixth_sequence_is_green)):
-                if((first_sequence_lowest_low > fourth_sequence_highest_high and 
-                    first_sequence_lowest_low > fifth_sequence_highest_high  and
-                    first_sequence_lowest_low > sixth_sequence_highest_high)):
-                    if((second_sequence_lowest_low > fourth_sequence_highest_high and 
-                        second_sequence_lowest_low > fifth_sequence_highest_high  and
-                        second_sequence_lowest_low > sixth_sequence_highest_high)):
-                            if(sixth_sequence_lowest_low < fourth_sequence_lowest_low and sixth_sequence_highest_high > fourth_sequence_highest_high):
-                                if(length_sixth_sequence <= length_fourth_sequence):
-                                    signal = 'BUY '
-                                    beep = 1
+                fourth_sequence_is_green)):
+                if((first_sequence_highest_high > second_sequence_highest_high  and
+                    first_sequence_highest_high > third_sequence_highest_high   and
+                    first_sequence_highest_high > fourth_sequence_highest_high)): 
+                    if(fourth_sequence_lowest_low < second_sequence_lowest_low and fourth_sequence_highest_high > second_sequence_highest_high):
+                        if(length_fourth_sequence <= length_second_sequence):
+                            signal = 'BUY '
+                            beep = 1
                 
 
             if((first_sequence_is_green     and 
                 second_sequence_is_red      and 
                 third_sequence_is_green     and 
-                fourth_sequence_is_red      and
-                fifth_sequence_is_green     and
-                sixth_sequence_is_red)):
-                if((first_sequence_highest_high < fourth_sequence_lowest_low and 
-                    first_sequence_highest_high < fifth_sequence_lowest_low  and
-                    first_sequence_highest_high < sixth_sequence_lowest_low)):
-                    if((second_sequence_highest_high < fourth_sequence_lowest_low and 
-                        second_sequence_highest_high < fifth_sequence_lowest_low  and
-                        second_sequence_highest_high < sixth_sequence_lowest_low)):
-                            if(sixth_sequence_highest_high > fourth_sequence_highest_high and sixth_sequence_lowest_low < fourth_sequence_lowest_low):
-                                if(length_sixth_sequence <= length_fourth_sequence):
-                                    signal = 'SELL'
-                                    beep = 1
+                fourth_sequence_is_red)):
+                if((first_sequence_lowest_low < second_sequence_lowest_low  and
+                    first_sequence_lowest_low < third_sequence_lowest_low   and
+                    first_sequence_lowest_low < fourth_sequence_lowest_low)):
+                    if(fourth_sequence_highest_high > second_sequence_highest_high and fourth_sequence_lowest_low < second_sequence_lowest_low): 
+                        if(length_fourth_sequence <= length_second_sequence):
+                            signal = 'SELL'
+                            beep = 1
 
 
 
