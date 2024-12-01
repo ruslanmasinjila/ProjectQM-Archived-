@@ -1,7 +1,7 @@
 ##########################################################################################
-# Project2Y (PROJECT YIN AND YANG)
+# ProjectSE (PROJECT SELF ENGULFING)
 # AUTHOR: RUSLAN MASINJILA
-# USAGE: python Project2Y.py <scan | step> <offset>
+# USAGE: python ProjectSE.py <scan | step> <offset>
 ##########################################################################################
 
 import MetaTrader5 as mt5
@@ -61,7 +61,7 @@ sleep_time          = 5
 
 offset              = 0
 if len(sys.argv) != 3:
-    print("USAGE: python Project2Y.py <scan | step> <offset>")
+    print("USAGE: python ProjectSE.py <scan | step> <offset>")
     sys.exit(1)
     
 mode   = sys.argv[1]
@@ -233,8 +233,8 @@ def get_signals():
                     if((second_sequence_lowest_low > fourth_sequence_highest_high and 
                         second_sequence_lowest_low > fifth_sequence_highest_high  and
                         second_sequence_lowest_low > sixth_sequence_highest_high)):
-                            if(third_sequence_highest_high > first_sequence_highest_high and third_sequence_lowest_low < first_sequence_lowest_low):
-                                if(sixth_sequence_lowest_low < fourth_sequence_lowest_low and sixth_sequence_highest_high > fourth_sequence_highest_high):                                
+                            if(sixth_sequence_lowest_low < fourth_sequence_lowest_low and sixth_sequence_highest_high > fourth_sequence_highest_high):
+                                if(length_sixth_sequence <= length_fourth_sequence):
                                     signal = 'BUY '
                                     beep = 1
                 
@@ -251,8 +251,8 @@ def get_signals():
                     if((second_sequence_highest_high < fourth_sequence_lowest_low and 
                         second_sequence_highest_high < fifth_sequence_lowest_low  and
                         second_sequence_highest_high < sixth_sequence_lowest_low)):
-                            if(third_sequence_lowest_low < first_sequence_lowest_low and third_sequence_highest_high > first_sequence_highest_high):
-                                if(sixth_sequence_highest_high > fourth_sequence_highest_high and sixth_sequence_lowest_low < fourth_sequence_lowest_low):
+                            if(sixth_sequence_highest_high > fourth_sequence_highest_high and sixth_sequence_lowest_low < fourth_sequence_lowest_low):
+                                if(length_sixth_sequence <= length_fourth_sequence):
                                     signal = 'SELL'
                                     beep = 1
 
