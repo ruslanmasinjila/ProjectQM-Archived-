@@ -1,7 +1,7 @@
 ##########################################################################################
-# ProjectSE (PROJECT SELF ENGULFING)
+# ProjectQM (PROJECT QUASIMODO)
 # AUTHOR: RUSLAN MASINJILA
-# USAGE: python ProjectSE.py <scan | step> <offset>
+# USAGE: python ProjectQM.py <scan | step> <offset>
 ##########################################################################################
 
 import MetaTrader5 as mt5
@@ -61,7 +61,7 @@ sleep_time          = 5
 
 offset              = 0
 if len(sys.argv) != 3:
-    print("USAGE: python ProjectSE.py <scan | step> <offset>")
+    print("USAGE: python ProjectQM.py <scan | step> <offset>")
     sys.exit(1)
     
 mode   = sys.argv[1]
@@ -200,7 +200,7 @@ def get_signals():
                     first_sequence_highest_high > fourth_sequence_highest_high )):
                     if(second_sequence_lowest_low < first_sequence_lowest_low):
                         if(fourth_sequence_lowest_open < second_sequence_lowest_low and fourth_sequence_highest_close > second_sequence_highest_high):
-                            if(fourth_sequence_head_open < second_sequence_highest_high and fourth_sequence_head_close > second_sequence_highest_high):
+                            if(third_sequence_lowest_low < second_sequence_lowest_low and third_sequence_lowest_low < fourth_sequence_lowest_low):
                                 difference = abs((first_sequence_highest_high - fourth_sequence_highest_high)/(symbol_info.point)) - spread
                                 if(difference >= 50):
                                     signal = 'BUY '
@@ -215,7 +215,7 @@ def get_signals():
                     first_sequence_lowest_low < fourth_sequence_lowest_low )):
                     if(second_sequence_highest_high > first_sequence_highest_high):
                         if(fourth_sequence_highest_open > second_sequence_highest_high and fourth_sequence_lowest_close < second_sequence_lowest_low):
-                            if(fourth_sequence_head_open > second_sequence_lowest_low and fourth_sequence_head_close < second_sequence_lowest_low):
+                            if(third_sequence_highest_high > second_sequence_highest_high and third_sequence_highest_high > fourth_sequence_highest_high):
                                 difference = abs((first_sequence_lowest_low - fourth_sequence_lowest_low)/(symbol_info.point)) - spread
                                 if(difference >= 50):
                                     signal = 'SELL'
