@@ -199,7 +199,7 @@ def get_signals():
                     first_sequence_highest_high > third_sequence_highest_high  and
                     first_sequence_highest_high > fourth_sequence_highest_high )):
                     if(second_sequence_lowest_low < first_sequence_lowest_low):
-                        if(fourth_sequence_lowest_low < second_sequence_lowest_low and fourth_sequence_highest_high > second_sequence_highest_high):
+                        if(fourth_sequence_lowest_open < second_sequence_lowest_low and fourth_sequence_highest_close > second_sequence_highest_high):
                             if(length_fourth_sequence <= length_second_sequence):
                                 difference = abs((first_sequence_highest_high - fourth_sequence_highest_high)/(symbol_info.point)) - spread
                                 if(difference >= 10):
@@ -214,7 +214,7 @@ def get_signals():
                     first_sequence_lowest_low < third_sequence_lowest_low  and
                     first_sequence_lowest_low < fourth_sequence_lowest_low )):
                     if(second_sequence_highest_high > first_sequence_highest_high):
-                        if(fourth_sequence_highest_high > second_sequence_highest_high and fourth_sequence_lowest_low < second_sequence_lowest_low):
+                        if(fourth_sequence_highest_open > second_sequence_highest_high and fourth_sequence_lowest_close < second_sequence_lowest_low):
                             if(length_fourth_sequence <= length_second_sequence):
                                 difference = abs((first_sequence_lowest_low - fourth_sequence_lowest_low)/(symbol_info.point)) - spread
                                 if(difference >= 10):
