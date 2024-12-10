@@ -1,5 +1,5 @@
 ##########################################################################################
-# ProjectOTMQM (ONE-TO.MANY QUASIMODO)
+# ProjectOTMQM (ONE-TO-MANY QUASIMODO)
 # AUTHOR: RUSLAN MASINJILA
 # USAGE: python ProjectOTMQM.py <scan | step> <offset>
 ##########################################################################################
