@@ -1,7 +1,7 @@
 ##########################################################################################
-# ProjectQM (PROJECT QUASIMODO)
+# ProjectOTMQM (ONE-TO.MANY QUASIMODO)
 # AUTHOR: RUSLAN MASINJILA
-# USAGE: python ProjectQM.py <scan | step> <offset>
+# USAGE: python ProjectOTMQM.py <scan | step> <offset>
 ##########################################################################################
 
 import MetaTrader5 as mt5
@@ -61,7 +61,7 @@ sleep_time          = 5
 
 offset              = 0
 if len(sys.argv) != 3:
-    print("USAGE: python ProjectQM.py <scan | step> <offset>")
+    print("USAGE: python ProjectOTMQM.py <scan | step> <offset>")
     sys.exit(1)
     
 mode   = sys.argv[1]
@@ -195,12 +195,12 @@ def get_signals():
                 second_sequence_is_green    and 
                 third_sequence_is_red       and 
                 fourth_sequence_is_green)):
-                if((first_sequence_highest_high > second_sequence_highest_high and
-                    first_sequence_highest_high > third_sequence_highest_high  and
-                    first_sequence_highest_high > fourth_sequence_highest_high )):
-                    if(second_sequence_lowest_low < first_sequence_lowest_low):
-                        if(fourth_sequence_lowest_open < second_sequence_lowest_low and fourth_sequence_highest_close > second_sequence_highest_high):
-                            if(length_fourth_sequence <= length_second_sequence):
+                if(length_fourth_sequence == 1):
+                    if((first_sequence_highest_high > second_sequence_highest_high and
+                        first_sequence_highest_high > third_sequence_highest_high  and
+                        first_sequence_highest_high > fourth_sequence_highest_high )):
+                        if(second_sequence_lowest_low < first_sequence_lowest_low):
+                            if(fourth_sequence_lowest_open < second_sequence_lowest_low and fourth_sequence_highest_close > second_sequence_highest_high):
                                 difference = abs((first_sequence_highest_high - fourth_sequence_highest_high)/(symbol_info.point)) - spread
                                 if(difference >= 10):
                                     signal = 'BUY '
@@ -210,12 +210,12 @@ def get_signals():
                 second_sequence_is_red      and 
                 third_sequence_is_green     and 
                 fourth_sequence_is_red)):
-                if((first_sequence_lowest_low < second_sequence_lowest_low and
-                    first_sequence_lowest_low < third_sequence_lowest_low  and
-                    first_sequence_lowest_low < fourth_sequence_lowest_low )):
-                    if(second_sequence_highest_high > first_sequence_highest_high):
-                        if(fourth_sequence_highest_open > second_sequence_highest_high and fourth_sequence_lowest_close < second_sequence_lowest_low):
-                            if(length_fourth_sequence <= length_second_sequence):
+                if(length_fourth_sequence == length_second_sequence):
+                    if((first_sequence_lowest_low < second_sequence_lowest_low and
+                        first_sequence_lowest_low < third_sequence_lowest_low  and
+                        first_sequence_lowest_low < fourth_sequence_lowest_low )):
+                        if(second_sequence_highest_high > first_sequence_highest_high):
+                            if(fourth_sequence_highest_open > second_sequence_highest_high and fourth_sequence_lowest_close < second_sequence_lowest_low):
                                 difference = abs((first_sequence_lowest_low - fourth_sequence_lowest_low)/(symbol_info.point)) - spread
                                 if(difference >= 10):
                                     signal = 'SELL'
