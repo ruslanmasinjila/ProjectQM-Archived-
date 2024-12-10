@@ -187,8 +187,7 @@ def get_signals():
             first_sequence_lowest_low    = rates_frame['low'].iloc[first_sequence_indices].min()
             first_sequence_highest_close = rates_frame['close'].iloc[first_sequence_indices].max()
             first_sequence_lowest_close  = rates_frame['close'].iloc[first_sequence_indices].min()           
-
-                             
+                   
             ##########################################################################################
             
             if((first_sequence_is_red       and 
