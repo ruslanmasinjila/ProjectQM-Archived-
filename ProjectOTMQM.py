@@ -210,7 +210,7 @@ def get_signals():
                 second_sequence_is_red      and 
                 third_sequence_is_green     and 
                 fourth_sequence_is_red)):
-                if(length_fourth_sequence == length_second_sequence):
+                if(length_fourth_sequence == 1):
                     if((first_sequence_lowest_low < second_sequence_lowest_low and
                         first_sequence_lowest_low < third_sequence_lowest_low  and
                         first_sequence_lowest_low < fourth_sequence_lowest_low )):
